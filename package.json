@@ -1,0 +1,16 @@
+{
+  "name": "web-app",
+  "version": "1.0.0",
+  "description": "Une application web simple en HTML/CSS/JS",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server",
+    "lint": "eslint ."
+  },
+  "author": "Bilel",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "live-server": "^1.2.2"
+  }
+}
