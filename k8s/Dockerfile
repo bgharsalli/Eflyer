@@ -1,11 +1,22 @@
-FROM node:16
+FROM jenkins/inbound-agent:latest
 
-# Installe curl et kubectl
-RUN apt-get update && apt-get install -y curl apt-transport-https gnupg && \
-    curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
-    echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
-    apt-get update && \
-    apt-get install -y kubectl
+# Installer curl, kubectl, Node.js et JDK
+USER root
 
-# Installe Docker CLI si nécessaire
-RUN apt-get install -y docker.io
+RUN apt-get update && \
+    apt-get install -y curl gnupg2 lsb-release apt-transport-https ca-certificates
+
+# Installer kubectl
+RUN curl -LO "https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
+    chmod +x kubectl && \
+    mv kubectl /usr/local/bin/
+
+# Installer Node.js 16
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
+    apt-get install -y nodejs
+
+# Installer OpenJDK 17
+RUN apt-get install -y openjdk-17-jdk
+
+USER jenkins
+
