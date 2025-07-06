@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eflyer
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: eflyer
+  template:
+    metadata:
+      labels:
+        app: eflyer
+    spec:
+      containers:
+      - name: eflyer
+        image: bilel216/eflyer:latest
+        ports:
+        - containerPort: 80
